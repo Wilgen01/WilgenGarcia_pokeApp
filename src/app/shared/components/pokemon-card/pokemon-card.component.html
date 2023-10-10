@@ -1,9 +1,9 @@
-<div class="card" [routerLink]="['/pokemon', pokemon.id]">
+<div *ngIf="pokemon" class="card" [routerLink]="['/pokemon', pokemon.id]" [queryParams]="{fromStorage: pokemon.fromStorage}">
     <div class="card__img">
         <img [src]="pokemon.img" alt="" width="150" height="150">
     </div>
     <div class="card__body">
-        <p>#{{pokemon.id}}</p>
+        <p>#{{pokemon.id | slice:0:5}}</p>
         <h2>{{pokemon.name}}</h2>
     </div>
 </div>

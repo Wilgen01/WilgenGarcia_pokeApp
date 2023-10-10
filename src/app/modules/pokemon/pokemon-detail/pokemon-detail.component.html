@@ -34,7 +34,9 @@
 
         <h4 class="mt">Ataques</h4>
         <div class="pokemon__moves">
-            <span *ngFor="let moves of pokemon.moves.slice(0, 5)">{{moves.move.name}}</span>
+            <ng-container *ngFor="let moves of pokemon.moves.slice(0, 5)">
+                <span *ngIf="moves && moves.move" >{{moves.move.name}}</span>
+            </ng-container>
         </div>
     </div>
 

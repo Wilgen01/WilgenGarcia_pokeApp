@@ -9,7 +9,7 @@ export class PaginationPipe implements PipeTransform {
   transform(pokemons: PokemonCard[], page: number = 0, offset: number = 20, search: string = ''): PokemonCard[] {
 
     if (search.length != 0) {
-      return pokemons.filter(pokemon => pokemon.name.includes(search.toLocaleLowerCase()))
+      return pokemons.filter(pokemon => pokemon.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
         .slice(page, page + offset)
     }
 

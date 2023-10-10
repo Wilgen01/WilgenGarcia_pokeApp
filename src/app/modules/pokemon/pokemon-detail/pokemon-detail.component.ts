@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon/pokemon.service';
 import { PokemonDetail } from 'src/app/models/pokemon-detail.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from '../../../services/storage/local-storage.service';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -11,26 +12,37 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PokemonDetailComponent implements OnInit {
 
   public pokemon!: PokemonDetail;
-  public pokemonId!: string;
+  public pokemonIsFromLocal: boolean = false;
 
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly activatedRoute: ActivatedRoute,
+    private readonly localStorageService: LocalStorageService,
     private readonly router: Router,
   ) { }
 
 
   public ngOnInit(): void {
-    this.getParams()
+    this.getQueryParams();
+  }
+
+  public getQueryParams() {
+    this.activatedRoute.queryParams.subscribe(
+      ({ fromStorage }) => {
+        this.pokemonIsFromLocal = fromStorage ? true : false
+        this.getParams()
+      }
+    )
   }
 
   public getParams() {
     this.activatedRoute.params.subscribe(
-      param => {
-        if (param) {
-          this.pokemonId = param['id'];
-          this.getPokemon(this.pokemonId);
-        }
+      ({ id }) => {
+        if (!id) this.router.navigateByUrl('/pokemon');
+        this.pokemonIsFromLocal
+          ? this.getLocalPokemon(id)
+          : this.getPokemon(id)
+
       }
     )
   }
@@ -41,9 +53,18 @@ export class PokemonDetailComponent implements OnInit {
         this.pokemon = pokemon;
       },
       error: () => {
-        this.router.navigateByUrl('/pokemons');
+        this.router.navigateByUrl('/pokemon');
       }
     })
+  }
+
+  public getLocalPokemon(id: string) {
+    const localPokemon = this.localStorageService.getLocalPokemonById(id)
+    if (localPokemon) {
+      this.pokemon = localPokemon;
+      return;
+    }
+    this.router.navigateByUrl('/pokemon');
   }
 
 }
