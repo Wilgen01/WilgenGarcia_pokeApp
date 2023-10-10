@@ -7,7 +7,7 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { ComponentsModule } from 'src/app/shared/components/components.module';
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { FormsModule } from '@angular/forms';
     PokemonRoutingModule,
     PipesModule,
     ComponentsModule,
-    FormsModule
+    ReactiveFormsModule
   ]
 })
 export class PokemonModule { }

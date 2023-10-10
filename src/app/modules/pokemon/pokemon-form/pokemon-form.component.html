@@ -1,40 +1,55 @@
 <div class="section">
 
-    <div class="btn mb" routerLink="/pokemon">Volver</div>
+  <div class="btn mb" routerLink="/pokemon">Volver</div>
 
-    <div class="form">
-        <form (submit)="onSubmit()">
-            <div class="form-group">
-              <label for="name">Nombre:</label>
-              <input type="text" id="name" name="name" [(ngModel)]="pokemonDetail.name" required>
-            </div>
-            <div class="form-group">
-              <label for="types">Tipos:</label>
-              <select id="types" name="types" [(ngModel)]="pokemonDetail.types" required>
-                <option *ngFor="let type of typesList" [value]="type.name">{{ type.name }}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="weight">Peso:</label>
-              <input type="text" id="weight" name="weight" [(ngModel)]="pokemonDetail.weight" required>
-            </div>
-            <div class="form-group">
-              <label for="height">Altura:</label>
-              <input type="text" id="height" name="height" [(ngModel)]="pokemonDetail.height" required>
-            </div>
-            <div class="form-group">
-              <label for="sprites">Sprites:</label>
-              <input type="text" id="sprites" name="sprites" [(ngModel)]="pokemonDetail.sprites" required>
-            </div>
-            <div class="form-group">
-              <label for="moves">Movimientos:</label>
-              <select id="moves" name="moves" [(ngModel)]="pokemonDetail.moves" required>
-                <option *ngFor="let move of movesList" [value]="move.name">{{ move.name }}</option>
-              </select>
-            </div>
-            <button class="btn btn-submit" type="submit">Guardar</button>
-          </form>
-          
+  <form class="form" (submit)="onSubmit()" [formGroup]="pokemonForm">
+    <h4 class="section-title" for="sprites">Datos generales</h4>
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" name="name" formControlName="name" required>
     </div>
-</div>
+    <div class="form-group" formGroupName="types">
+      <label for="types">Tipos:</label>
+      <select id="types" name="types" required formControlName="name">
+        <option *ngFor="let type of typesList" [value]="type.name">{{ type.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="weight">Peso:</label>
+      <input type="number" id="weight" name="weight" formControlName="weight" required>
+    </div>
+    <div class="form-group">
+      <label for="height">Altura:</label>
+      <input type="number" id="height" name="height" formControlName="height" required>
+    </div>
+    <div class="form-group" formGroupName="moves">
+      <label for="moves">Movimientos:</label>
+      <select id="moves" name="moves" required formControlName="name">
+        <option *ngFor="let move of movesList" [value]="move.name">{{ move.name }}</option>
+      </select>
+    </div>
 
+    <div class="sprites" formGroupName="sprites">
+      <h4 class="section-title" for="sprites">Sprites</h4>
+      <div class="form-group">
+        <label for="back_default">Back Default:</label>
+        <input type="text" id="back_default" formControlName="back_default">
+      </div>
+      <div class="form-group">
+        <label for="back_shiny">Back Shiny:</label>
+        <input type="text" id="back_shiny" formControlName="back_shiny">
+      </div>
+      <div class="form-group">
+        <label for="front_default">Front Default:</label>
+        <input type="text" id="front_default" formControlName="front_default">
+      </div>
+      <div class="form-group">
+        <label for="front_shiny">Front Shiny:</label>
+        <input type="text" id="front_shiny" formControlName="front_shiny">
+      </div>
+    </div>
+    <button class="btn btn-submit" type="submit">Guardar</button>
+  </form>
+
+
+</div>

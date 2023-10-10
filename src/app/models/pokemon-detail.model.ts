@@ -19,7 +19,6 @@ interface Move {
 
 export interface GenericItem {
     name: string;
-    url: string;
 }
 
 interface Sprites {
