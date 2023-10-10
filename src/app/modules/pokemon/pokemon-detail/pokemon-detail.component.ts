@@ -38,7 +38,7 @@ export class PokemonDetailComponent implements OnInit {
   public getParams() {
     this.activatedRoute.params.subscribe(
       ({ id }) => {
-        if (!id) this.router.navigateByUrl('/pokemons');
+        if (!id) this.router.navigateByUrl('/pokemon');
         this.pokemonIsFromLocal
           ? this.getLocalPokemon(id)
           : this.getPokemon(id)
@@ -53,7 +53,7 @@ export class PokemonDetailComponent implements OnInit {
         this.pokemon = pokemon;
       },
       error: () => {
-        this.router.navigateByUrl('/pokemons');
+        this.router.navigateByUrl('/pokemon');
       }
     })
   }
@@ -61,12 +61,10 @@ export class PokemonDetailComponent implements OnInit {
   public getLocalPokemon(id: string) {
     const localPokemon = this.localStorageService.getLocalPokemonById(id)
     if (localPokemon) {
-      console.log(localPokemon);
-      
       this.pokemon = localPokemon;
       return;
     }
-    this.router.navigateByUrl('/pokemons');
+    this.router.navigateByUrl('/pokemon');
   }
 
 }

@@ -15,7 +15,6 @@ export class LocalStorageService {
 
     pokemonList.push(pokemon);
     localStorage.setItem(this.localStorageKey, JSON.stringify(pokemonList));
-    console.log(pokemonList);
   }
 
   public getLocalPokemons() {

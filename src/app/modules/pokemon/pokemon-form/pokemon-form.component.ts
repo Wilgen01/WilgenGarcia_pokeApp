@@ -61,7 +61,8 @@ export class PokemonFormComponent implements OnInit {
       moves:  [{move: formValue.moves}],
       sprites: formValue.sprites
     }
-  
+    console.log(formValue);
+    
     this.localStorageService.savePokemon(pokemon);
   }
 

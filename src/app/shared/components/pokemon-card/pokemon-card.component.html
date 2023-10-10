@@ -1,4 +1,4 @@
-<div class="card" [routerLink]="['/pokemon', pokemon.id]" [queryParams]="{fromStorage: pokemon.fromStorage}">
+<div *ngIf="pokemon" class="card" [routerLink]="['/pokemon', pokemon.id]" [queryParams]="{fromStorage: pokemon.fromStorage}">
     <div class="card__img">
         <img [src]="pokemon.img" alt="" width="150" height="150">
     </div>
