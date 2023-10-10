@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GenericItem, PokemonDetail } from 'src/app/models/pokemon-detail.model';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
 
@@ -16,7 +17,8 @@ export class PokemonFormComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly localStorageService: LocalStorageService
+    private readonly localStorageService: LocalStorageService,
+    private readonly router: Router,
   ) { }
 
   public ngOnInit(): void {
@@ -61,9 +63,9 @@ export class PokemonFormComponent implements OnInit {
       moves:  [{move: formValue.moves}],
       sprites: formValue.sprites
     }
-    console.log(formValue);
     
     this.localStorageService.savePokemon(pokemon);
+    this.router.navigateByUrl('/pokemon')
   }
 
 }
