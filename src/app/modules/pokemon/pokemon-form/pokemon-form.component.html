@@ -1,0 +1,40 @@
+<div class="section">
+
+    <div class="btn mb" routerLink="/pokemon">Volver</div>
+
+    <div class="form">
+        <form (submit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Nombre:</label>
+              <input type="text" id="name" name="name" [(ngModel)]="pokemonDetail.name" required>
+            </div>
+            <div class="form-group">
+              <label for="types">Tipos:</label>
+              <select id="types" name="types" [(ngModel)]="pokemonDetail.types" required>
+                <option *ngFor="let type of typesList" [value]="type.name">{{ type.name }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="weight">Peso:</label>
+              <input type="text" id="weight" name="weight" [(ngModel)]="pokemonDetail.weight" required>
+            </div>
+            <div class="form-group">
+              <label for="height">Altura:</label>
+              <input type="text" id="height" name="height" [(ngModel)]="pokemonDetail.height" required>
+            </div>
+            <div class="form-group">
+              <label for="sprites">Sprites:</label>
+              <input type="text" id="sprites" name="sprites" [(ngModel)]="pokemonDetail.sprites" required>
+            </div>
+            <div class="form-group">
+              <label for="moves">Movimientos:</label>
+              <select id="moves" name="moves" [(ngModel)]="pokemonDetail.moves" required>
+                <option *ngFor="let move of movesList" [value]="move.name">{{ move.name }}</option>
+              </select>
+            </div>
+            <button class="btn btn-submit" type="submit">Guardar</button>
+          </form>
+          
+    </div>
+</div>
+

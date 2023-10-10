@@ -17,7 +17,7 @@ interface Move {
     move: GenericItem;
 }
 
-interface GenericItem {
+export interface GenericItem {
     name: string;
     url: string;
 }
