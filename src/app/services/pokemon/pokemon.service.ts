@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { PokemonCard } from 'src/app/models/pokemon-card.model';
 import { PokemonDetail } from 'src/app/models/pokemon-detail.model';
 import { LocalStorageService } from 'src/app/services/storage/local-storage.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { LocalStorageService } from 'src/app/services/storage/local-storage.serv
 export class PokemonService {
 
   private url = environment.POKEAPI_URL;
+  private pokemons: PokemonCard[] = [];
 
   constructor(
     private readonly http: HttpClient,
@@ -20,10 +22,14 @@ export class PokemonService {
   ) { }
 
   public getPokemons() {
+    if (this.pokemons.length > 0) {
+      return of(this.pokemons)
+    }
     return this.http.get<PokeapiResponse>(`${this.url}/pokemon?limit=1292`).pipe(
       map(this.mapToPokemonCard),
       map((pokemon) => {
         pokemon.unshift(...this.localStorageService.mapLocalPokemonsToCard())
+        this.pokemons = pokemon;
         return pokemon
       })
     )
