@@ -11,7 +11,9 @@
     <div class="form-group" formGroupName="types">
       <label for="types">Tipos:</label>
       <select id="types" name="types" required formControlName="name">
-        <option *ngFor="let type of typesList" [value]="type.name">{{ type.name }}</option>
+        @for (type of typesList; track type) {
+          <option [value]="type.name">{{ type.name }}</option>
+        }
       </select>
     </div>
     <div class="form-group">
@@ -25,7 +27,9 @@
     <div class="form-group" formGroupName="moves">
       <label for="moves">Movimientos:</label>
       <select id="moves" name="moves" required formControlName="name">
-        <option *ngFor="let move of movesList" [value]="move.name">{{ move.name }}</option>
+        @for (move of movesList; track move) {
+          <option [value]="move.name">{{ move.name }}</option>
+        }
       </select>
     </div>
 
