@@ -1,46 +1,49 @@
 <div class="section">
 
-    <div class="btn" routerLink="/pokemon">Volver</div>
+  <div class="btn" routerLink="/pokemon">Volver</div>
 
-    <div class="pokemon" *ngIf="pokemon ; else loading">
-        <div class="pokemon__img">
-            <div class="card__img">
-                <img [src]="pokemon.sprites.front_default" alt="" width="150" height="150">
-            </div>
+  @if (pokemon ) {
+    <div class="pokemon">
+      <div class="pokemon__img">
+        <div class="card__img">
+          <img [src]="pokemon.sprites.front_default" alt="" width="150" height="150">
         </div>
-        <div class="pokemon__title">
-            <p>#{{pokemon.id}}</p>
-            <h2>{{pokemon.name | titlecase}}</h2>
-        </div>
-        <hr>
+      </div>
+      <div class="pokemon__title">
+        <p>#{{pokemon.id}}</p>
+        <h2>{{pokemon.name | titlecase}}</h2>
+      </div>
+      <hr>
         <div class="pokemon__details">
-            <h4>Tipos</h4>
-            <span *ngFor="let types of pokemon.types">{{types.type.name}}</span>
-            <h4>Peso</h4>
-            <p>{{pokemon.weight}} kg</p>
-            <h4>Altura</h4>
-            <p>{{pokemon.height}} m</p>
+          <h4>Tipos</h4>
+          @for (types of pokemon.types; track types) {
+            <span>{{types.type.name}}</span>
+          }
+          <h4>Peso</h4>
+          <p>{{pokemon.weight}} kg</p>
+          <h4>Altura</h4>
+          <p>{{pokemon.height}} m</p>
         </div>
         <hr>
-
-        <h4 class="mt">Sprites</h4>
-        <div class="pokemon__sprites">    
+          <h4 class="mt">Sprites</h4>
+          <div class="pokemon__sprites">
             <img [src]="pokemon.sprites.front_default" alt="" width="80" height="80">
             <img [src]="pokemon.sprites.back_default" alt="" width="80" height="80">
             <img [src]="pokemon.sprites.front_shiny" alt="" width="80" height="80">
             <img [src]="pokemon.sprites.back_shiny" alt="" width="80" height="80">
-        </div>
-        <hr>
+          </div>
+          <hr>
+            <h4 class="mt">Ataques</h4>
+            <div class="pokemon__moves">
+              @for (moves of pokemon.moves.slice(0, 5); track moves) {
+                @if (moves && moves.move) {
+                  <span >{{moves.move.name}}</span>
+                }
+              }
+            </div>
+          </div>
+        } @else {
+          <app-skeleton></app-skeleton>
+        }
 
-        <h4 class="mt">Ataques</h4>
-        <div class="pokemon__moves">
-            <ng-container *ngFor="let moves of pokemon.moves.slice(0, 5)">
-                <span *ngIf="moves && moves.move" >{{moves.move.name}}</span>
-            </ng-container>
-        </div>
-    </div>
-
-    <ng-template #loading>
-        <app-skeleton></app-skeleton>
-    </ng-template>
-</div>
+      </div>

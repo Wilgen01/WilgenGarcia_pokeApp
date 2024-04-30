@@ -1,15 +1,15 @@
 <h1 class="title">Listado de Pokemon</h1>
 <form class="search">
-    <input class="search__input" type="text" placeholder="Buscar" #search (keyup)="searchPokemon(search.value)">
+  <input class="search__input" type="text" placeholder="Buscar" #search (keyup)="searchPokemon(search.value)">
 </form>
 <section class="grid">
-    <app-pokemon-card
-        *ngFor="let pokemon of pokemons | pagination:page:offset:searchTerm" 
-        [pokemon]="pokemon" >
+  @for (pokemon of pokemons | pagination:page:offset:searchTerm; track pokemon.id) {
+    <app-pokemon-card [pokemon]="pokemon" >
     </app-pokemon-card>
+  }
 </section>
 <div class="buttons">
-    <button class="buttons__prev" (click)="previousPage()" [disabled]="page == 0">Atrás</button>
-    <button class="buttons__next" (click)="nextPage()" 
-    [disabled]="(pokemons | pagination:page:offset:searchTerm).length < offset">Siguiente</button>
+  <button class="buttons__prev" (click)="previousPage()" [disabled]="page == 0">Atrás</button>
+  <button class="buttons__next" (click)="nextPage()"
+  [disabled]="(pokemons | pagination:page:offset:searchTerm).length < offset">Siguiente</button>
 </div>
